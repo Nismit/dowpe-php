@@ -1,12 +1,7 @@
 # Dowpe - PHP
 
 
-[![MicroBadger Size](https://img.shields.io/microbadger/image-size/nismit/dowpe-php.svg)](https://microbadger.com/images/nismit/dowpe-php)
-&nbsp;
-[![MicroBadger Layers](https://img.shields.io/microbadger/layers/nismit/dowpe-php.svg)](https://microbadger.com/images/nismit/dowpe-php)&nbsp;
-[![Docker Pulls](https://img.shields.io/docker/pulls/nismit/dowpe-php.svg)](https://hub.docker.com/r/nismit/dowpe-php/)&nbsp;
-![Docker Automated build](https://img.shields.io/docker/automated/nismit/dowpe-php.svg)&nbsp;
-![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+[![MicroBadger Size](https://img.shields.io/microbadger/image-size/nismit/dowpe-php.svg)](https://microbadger.com/images/nismit/dowpe-php)&nbsp; [![MicroBadger Layers](https://img.shields.io/microbadger/layers/nismit/dowpe-php.svg)](https://microbadger.com/images/nismit/dowpe-php)&nbsp; [![Docker Pulls](https://img.shields.io/docker/pulls/nismit/dowpe-php.svg)](https://hub.docker.com/r/nismit/dowpe-php/)&nbsp; ![Docker Automated build](https://img.shields.io/docker/automated/nismit/dowpe-php.svg)&nbsp; ![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 
 Docker WordPress Environment PHP Container
