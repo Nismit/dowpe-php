@@ -49,3 +49,18 @@ RUN set -ex \
         && apk del .phpize-deps .build-deps \
         # Clean Up
         && rm -rf /tmp/*
+
+
+# install composer and wp-cli
+RUN set -ex \
+        && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+        && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+        && chmod +x wp-cli.phar \
+        && mv wp-cli.phar /usr/local/bin/wp \
+        && wp --allow-root --version
+
+
+# Copy and prepare entrypoint
+COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
+ENTRYPOINT ["/docker-entrypoint.sh"]
