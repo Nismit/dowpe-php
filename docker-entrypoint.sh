@@ -11,11 +11,12 @@ MYSQL_PREFIX=""
 WP_VERSION=${WP_VERSION:-latest}
 WP_LOCALE=${WP_LOCALE:-en_US}
 WP_THEME=${WP_THEME:-twentyseventeen}
+WP_PLUGINS=${WP_PLUGINS:-wp-multibyte-patch\ duplicate-post}
 WP_URL=${WP_URL:-localhost\:8080}
 WP_TITLE=${WP_TITLE:-Dowpe-WordPress}
 WP_ADMIN=${WP_ADMIN:admin}
 WP_PASSWORD=${WP_PASSWORD:-password}
-WP_EMAIL=${WP_EMAIL:-admin\@localhost}
+WP_EMAIL=${WP_EMAIL:-example\@example.com}
 
 # Color Collections
 RED='\033[0;31m'
@@ -49,8 +50,12 @@ wp_create_config() {
   wp --allow-root config create --dbname=${MYSQL_DATABASE} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${MYSQL_HOST} --dbprefix=${MYSQL_PREFIX}
 }
 
+wp_install_plugins() {
+  wp --allow-root plugin install ${WP_PLUGINS} --activate
+}
+
 wp_install() {
-    wp --allow-root core install
+    wp --allow-root core install --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN} --admin_password=${WP_PASSWORD} --admin_email=${WP_EMAIL}
 }
 
 main() {
@@ -67,17 +72,21 @@ main() {
     success 'Database established!'
 
     # Check exists wp-config.php
-    wp --allow-root config path
-    isConfig=$?
+    wp --allow-root config path --quiet
+    hasConfig=$?
 
-    if [ $isConfig -ne 1 ]; then
+    if [ $hasConfig -ne 0 ]; then
+      info 'Not found wp-config.php'
       info 'Generating wp-config.php'
       wp_create_config
     fi
 
+    info 'wp-config.php path: '
     wp --allow-root config path
 
-    # wp_install
+    wp_install
+
+    wp_install_plugins
   fi
 }
 
