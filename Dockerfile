@@ -29,6 +29,7 @@ RUN set -ex \
               imagemagick-dev \
         # Package Install
         && apk add --no-cache --update \
+              mysql-client \
               libmemcached \
               freetype \
               libjpeg-turbo \
@@ -50,15 +51,12 @@ RUN set -ex \
         # Clean Up
         && rm -rf /tmp/*
 
-
 # install composer and wp-cli
 RUN set -ex \
         && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
         && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
         && chmod +x wp-cli.phar \
-        && mv wp-cli.phar /usr/local/bin/wp \
-        && wp --allow-root --version
-
+        && mv wp-cli.phar /usr/local/bin/wp
 
 # Copy and prepare entrypoint
 COPY docker-entrypoint.sh /
