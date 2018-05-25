@@ -37,11 +37,6 @@ info() {
   echo -e ${CYAN}$1${NC}
 }
 
-
-# TODO
-# install theme and remove others
-# install plugins
-
 wp_download() {
   wp --allow-root core download --version=$WP_VERSION --locale=$WP_LOCALE
 }
@@ -54,6 +49,14 @@ wp_install_plugins() {
   wp --allow-root plugin install ${WP_PLUGINS} --activate
 }
 
+wp_clean_up_plugins() {
+  wp --allow-root plugin delete $(wp --allow-root plugin list --status=inactive --field=name)
+}
+
+wp_clean_up_themes() {
+  wp --allow-root theme delete $(wp --allow-root theme list --status=inactive --field=name)
+}
+
 wp_install() {
     wp --allow-root core install --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN} --admin_password=${WP_PASSWORD} --admin_email=${WP_EMAIL}
 }
@@ -63,7 +66,7 @@ main() {
     info 'Start WordPress Installation'
     wp_download
 
-    until nc -z -v -w30 $MYSQL_HOST 3306
+    until nc -z -v -w10 $MYSQL_HOST 3306
     do
       info "Waiting for database connection..."
       sleep 5
@@ -84,9 +87,18 @@ main() {
     info 'wp-config.php path: '
     wp --allow-root config path
 
+    # Install WordPress
     wp_install
 
+    # Clean up plugins which are inactive
+    wp_clean_up_plugins
+
+    # Install listed plugins
     wp_install_plugins
+
+    # Clean up themes which are inactive
+    # Because of security risk that having old theme
+    wp_clean_up_themes
   fi
 }
 
