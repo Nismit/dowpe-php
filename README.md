@@ -39,6 +39,7 @@ mysqli
 image magick
 memcached
 opcache
+mysql-client
 ```
 
 The full list of installed modules
