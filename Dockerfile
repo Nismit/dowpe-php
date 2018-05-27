@@ -1,4 +1,4 @@
-FROM php:fpm-alpine
+FROM php:7.2-fpm-alpine
 
 LABEL maintainer="Michinobu Nishimoto (nismit) nismit.dev@gmail.com"
 
