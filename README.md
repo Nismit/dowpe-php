@@ -6,9 +6,16 @@
 
 Docker WordPress Environment PHP Container
 
+This image must use with [mysql](https://hub.docker.com/_/mysql/) or [mariadb](mariadb) image
+
 ## PHP Version
-Using `php:fpm-alpine` from Official Repository. Docker always will pull latest image which tags `fpm-alpine`.
-See [PHP - Docker Hub](https://hub.docker.com/_/php/)
+PHP-FPM 7.2
+
+Using `php:X.X-fpm-alpine` from PHP Official Repository.
+ 
+Dowpe-php tags are set php version (e.g. dowpe-php:7.2 -> php:7.2-fpm-alpine)
+
+See more details [PHP - Docker Hub](https://hub.docker.com/_/php/)
 
 ## Customized php.ini
 Original `php.ini` from [php-src](https://github.com/php/php-src)
