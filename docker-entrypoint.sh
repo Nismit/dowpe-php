@@ -107,11 +107,12 @@ main() {
     # Because of security risk that having old theme
     wp_clean_up_themes
 
-    exit 0
   fi
 
   success 'WordPress has been installed!'
-  exit 0
 }
 
 main
+
+# To run php-fpm, it refer from CMD["php-fpm"] in Dokcerfile
+exec "$@"
