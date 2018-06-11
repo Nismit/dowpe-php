@@ -59,6 +59,6 @@ RUN set -ex \
         && mv wp-cli.phar /usr/local/bin/wp
 
 # Copy and prepare entrypoint
-COPY docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["php-fpm"]
