@@ -2,10 +2,11 @@
 
 # Environment Variable
 MYSQL_HOST=${MYSQL_HOST:-mysql}
+MYSQL_PORT=${MYSQL_PORT:-3306}
 MYSQL_DATABASE=${MYSQL_DATABASE:-wordpress}
 MYSQL_USER=${MYSQL_USER:-dowpe_user}
 MYSQL_PASSWORD=${MYSQL_PASSWORD:-dowpe_password}
-MYSQL_PREFIX=""
+MYSQL_PREFIX=${MYSQL_PREFIX}
 
 # WordPress Variable
 WP_VERSION=${WP_VERSION:-latest}
@@ -76,7 +77,7 @@ wp_clean_up_themes() {
 }
 
 main() {
-  until nc -z -v -w30 $MYSQL_HOST 3306
+  until nc -z -v -w30 $MYSQL_HOST $MYSQL_PORT
   do
     info "Waiting for database connection..."
     info "If mysql container is not running, press Ctrl+C to shutdown this script."
@@ -106,7 +107,6 @@ main() {
     # Clean up themes which are inactive
     # Because of security risk that having old theme
     wp_clean_up_themes
-
   fi
 
   success 'WordPress has been installed!'
